@@ -3,3 +3,6 @@ android-sdk/
 app/build/
 build/
 local.properties
+*.pdf
+GWDLLC*
+*Certificate*
