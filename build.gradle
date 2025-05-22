@@ -60,41 +60,13 @@ plugins {
     id 'com.google.protobuf' version '0.9.4' apply false
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-        // Haveno specific repositories
-        maven { url "https://repo1.maven.org/maven2/" }
-    }
-}
+// Repository configuration moved to settings.gradle
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
 // Common configuration for all modules
-subprojects {
-    apply plugin: 'java-library'
-    
-    java {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    
-    // Common dependencies for all modules
-    dependencies {
-        // Logging
-        implementation 'ch.qos.logback:logback-classic:1.4.14'
-        implementation 'org.slf4j:slf4j-api:2.0.9'
-        
-        // Testing
-        testImplementation "junit:junit:$junitVersion"
-        testImplementation "org.mockito:mockito-core:$mockitoVersion"
-        testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-    }
-}
 
 // Gradle wrapper configuration
 wrapper {
