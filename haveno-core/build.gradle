@@ -1,0 +1,60 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'com.google.protobuf'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:$protobufVersion"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {
+                option 'lite'
+            }
+        }
+    }
+}
+
+dependencies {
+    // Core Haveno dependencies (adapted from haveno-xmr)
+    api "com.google.protobuf:protobuf-java:$protobufVersion"
+    api "io.grpc:grpc-core:$grpcVersion"
+    api "io.grpc:grpc-stub:$grpcVersion"
+    api "io.grpc:grpc-protobuf:$grpcVersion"
+    api "io.grpc:grpc-okhttp:$grpcVersion"
+    
+    // Cryptography
+    api "org.bouncycastle:bcprov-jdk15on:$bcVersion"
+    api "org.bouncycastle:bcpg-jdk15on:$bcVersion"
+    
+    // Monero integration
+    api "io.github.woodser:monero-java:$moneroJavaVersion"
+    
+    // Utilities
+    api "com.google.guava:guava:$guavaVersion"
+    api "com.google.code.gson:gson:$gsonVersion"
+    api "com.google.inject:guice:5.1.0"
+    
+    // Logging
+    api 'org.slf4j:slf4j-api:2.0.9'
+    
+    // Kotlin
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+    
+    // Testing
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+}

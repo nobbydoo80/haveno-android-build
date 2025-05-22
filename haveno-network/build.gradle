@@ -1,0 +1,31 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    // Core module
+    api project(':haveno-core')
+    
+    // Tor networking (Android compatible)
+    api 'com.github.thaliproject.Tor_Onion_Proxy_Library:universal:2.0.12'
+    
+    // Network utilities
+    api "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    api "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    
+    // Utilities
+    api "com.google.guava:guava:$guavaVersion"
+    
+    // Kotlin coroutines
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+    
+    // Testing
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+}

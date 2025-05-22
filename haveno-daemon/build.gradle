@@ -1,0 +1,35 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    // Core module
+    api project(':haveno-core')
+    api project(':haveno-network')
+    
+    // gRPC server
+    api "io.grpc:grpc-netty-shaded:$grpcVersion"
+    api "io.grpc:grpc-services:$grpcVersion"
+    
+    // Dependency injection
+    api "com.google.inject:guice:5.1.0"
+    
+    // Configuration
+    api 'com.typesafe:config:1.4.3'
+    
+    // Logging
+    api 'ch.qos.logback:logback-classic:1.4.14'
+    
+    // Kotlin coroutines
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+    
+    // Testing
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+}

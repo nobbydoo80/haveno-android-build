@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Haveno</string>
+    <string name="notification_channel_daemon">Daemon Service</string>
+    <string name="notification_channel_daemon_description">Background service for Haveno daemon</string>
+    <string name="notification_channel_trades">Trade Notifications</string>
+    <string name="notification_channel_trades_description">Notifications for trade updates</string>
+    <string name="notification_channel_chat">Chat Messages</string>
+    <string name="notification_channel_chat_description">Notifications for chat messages</string>
+    <string name="notification_channel_security">Security Alerts</string>
+    <string name="notification_channel_security_description">Security-related notifications</string>
+    
+    <string name="notification_daemon_title">Haveno Running</string>
+    <string name="notification_daemon_text">Connected to Haveno network</string>
+    
+    <string name="status_connected">Connected</string>
+    <string name="status_connecting">Connecting…</string>
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_error">Connection Error</string>
+    
+    <string name="daemon_starting">Starting…</string>
+    <string name="daemon_running">Running</string>
+    <string name="daemon_stopping">Stopping…</string>
+    <string name="daemon_stopped">Stopped</string>
+    <string name="daemon_error">Error</string>
+    
+    <string name="feature_coming_soon">Feature coming soon</string>
+</resources>

@@ -1,0 +1,103 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext {
+        // Versions
+        compileSdkVersion = 34
+        targetSdkVersion = 34
+        minSdkVersion = 26
+        
+        // Dependencies versions
+        kotlinVersion = '1.9.20'
+        androidGradleVersion = '8.1.4'
+        
+        // Haveno core versions (inherited from haveno-xmr)
+        grpcVersion = '1.42.1'
+        protobufVersion = '3.19.4'
+        guavaVersion = '31.1-android'
+        gsonVersion = '2.10.1'
+        moneroJavaVersion = '0.8.36'
+        bcVersion = '1.70'
+        
+        // Android specific
+        appCompatVersion = '1.6.1'
+        materialVersion = '1.10.0'
+        constraintLayoutVersion = '2.1.4'
+        lifecycleVersion = '2.7.0'
+        navigationVersion = '2.7.5'
+        roomVersion = '2.6.0'
+        workManagerVersion = '2.9.0'
+        biometricVersion = '1.1.0'
+        
+        // Networking
+        retrofitVersion = '2.9.0'
+        okhttpVersion = '4.12.0'
+        
+        // Firebase
+        firebaseVersion = '32.6.0'
+        
+        // Testing
+        junitVersion = '4.13.2'
+        androidxJunitVersion = '1.1.5'
+        espressoVersion = '3.5.1'
+        mockitoVersion = '5.7.0'
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$androidGradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "com.google.gms:google-services:4.4.0"
+        classpath "com.google.protobuf:protobuf-gradle-plugin:0.9.4"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.48"
+    }
+}
+
+plugins {
+    id 'com.android.application' version '8.1.4' apply false
+    id 'com.android.library' version '8.1.4' apply false
+    id 'org.jetbrains.kotlin.android' version '1.9.20' apply false
+    id 'org.jetbrains.kotlin.jvm' version '1.9.20' apply false
+    id 'com.google.protobuf' version '0.9.4' apply false
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        // Haveno specific repositories
+        maven { url "https://repo1.maven.org/maven2/" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+// Common configuration for all modules
+subprojects {
+    apply plugin: 'java-library'
+    
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    
+    // Common dependencies for all modules
+    dependencies {
+        // Logging
+        implementation 'ch.qos.logback:logback-classic:1.4.14'
+        implementation 'org.slf4j:slf4j-api:2.0.9'
+        
+        // Testing
+        testImplementation "junit:junit:$junitVersion"
+        testImplementation "org.mockito:mockito-core:$mockitoVersion"
+        testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
+    }
+}
+
+// Gradle wrapper configuration
+wrapper {
+    gradleVersion = '8.4'
+    distributionType = Wrapper.DistributionType.ALL
+}
