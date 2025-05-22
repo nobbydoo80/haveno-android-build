@@ -2,11 +2,13 @@ package com.haveno.android.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.haveno.android.R
 import com.haveno.android.databinding.ActivityMainBinding
 
@@ -25,7 +27,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
-        setSupportActionBar(binding.toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
         
         val navController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration = AppBarConfiguration(
@@ -35,7 +38,9 @@ class MainActivity : AppCompatActivity() {
         
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
-        binding.bottomNav.setupWithNavController(navController)
+        
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNav.setupWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {

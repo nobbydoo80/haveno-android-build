@@ -13,6 +13,9 @@ import com.haveno.android.R
 import com.haveno.android.data.repository.DaemonRepository
 import com.haveno.android.ui.main.MainActivity
 import com.haveno.android.util.ConnectionState
+import com.haveno.android.util.Constants.DAEMON_NOTIFICATION_ID
+import com.haveno.android.util.Constants.DAEMON_CHANNEL_ID
+import com.haveno.android.util.Constants.HEARTBEAT_INTERVAL_SECONDS
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -79,7 +82,7 @@ class HavenoDaemonService : Service() {
             return
         }
         
-        startForeground(HavenoApplication.DAEMON_NOTIFICATION_ID, createNotification())
+        startForeground(DAEMON_NOTIFICATION_ID, createNotification())
         isStarted = true
         
         serviceScope.launch {
@@ -181,7 +184,7 @@ class HavenoDaemonService : Service() {
                     _connectionState.postValue(ConnectionState.ERROR)
                 }
                 
-                delay(HavenoApplication.HEARTBEAT_INTERVAL_SECONDS * 1000)
+                delay(HEARTBEAT_INTERVAL_SECONDS * 1000)
             }
         }
     }
@@ -192,7 +195,7 @@ class HavenoDaemonService : Service() {
         return false
     }
 
-    private fun createNotification() = NotificationCompat.Builder(this, HavenoApplication.DAEMON_CHANNEL_ID)
+    private fun createNotification() = NotificationCompat.Builder(this, DAEMON_CHANNEL_ID)
         .setContentTitle(getString(R.string.notification_daemon_title))
         .setContentText(getString(R.string.notification_daemon_text))
         .setSmallIcon(R.drawable.ic_haveno_notification)
