@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.haveno.android.databinding.FragmentFundsBinding
+import timber.log.Timber
 
 class FundsFragment : Fragment() {
     
@@ -29,6 +30,27 @@ class FundsFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        Timber.d("=== FUNDS FRAGMENT LOADED ===")
+        
+        // Show demo wallet functionality
+        binding.textError.apply {
+            text = "💰 FUNDS FRAGMENT LOADED!\n\n" +
+                   "✅ Mock Wallet Connected\n" +
+                   "✅ Available Balance: 25.89 XMR\n" +
+                   "✅ Node: node.haveno.exchange:18081\n" +
+                   "✅ Synchronized (100%)\n\n" +
+                   "Demo Features:\n" +
+                   "• Send XMR to contacts\n" +
+                   "• Transaction history\n" +
+                   "• Receive addresses\n\n" +
+                   "Contacts Available:\n" +
+                   "• Alice (Trading Partner)\n" +
+                   "• Bob (Market Maker)\n" +
+                   "• Charlie (New Contact)\n\n" +
+                   "Ready to send Monero!"
+            visibility = View.VISIBLE
+        }
         
         setupTransactions()
         setupObservers()

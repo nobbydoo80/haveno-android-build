@@ -19,12 +19,12 @@ class WalletRepository {
     suspend fun getBalance(): WalletBalance {
         delay(800) // Simulate network delay
         
-        // Generate realistic sample balance
-        val available = BigDecimal("12.45678901")
-        val pending = BigDecimal("1.23456789")
-        val reservedOffer = BigDecimal("0.50000000")
-        val reservedTrade = BigDecimal("2.10000000")
-        val unconfirmed = BigDecimal("0.12345678")
+        // Generate realistic sample balance - user has decent amount to demo
+        val available = BigDecimal("25.89432156")
+        val pending = BigDecimal("0.00000000")
+        val reservedOffer = BigDecimal("0.00000000")
+        val reservedTrade = BigDecimal("5.25000000")
+        val unconfirmed = BigDecimal("0.00000000")
         
         val total = available.add(pending).add(reservedOffer).add(reservedTrade).add(unconfirmed)
         
@@ -46,6 +46,80 @@ class WalletRepository {
         delay(1200) // Simulate network delay
         
         return generateSampleTransactions()
+    }
+    
+    /**
+     * Get mock contacts for sending Monero
+     */
+    suspend fun getContacts(): List<Contact> {
+        delay(300)
+        
+        return listOf(
+            Contact(
+                id = "1",
+                name = "Alice (Trading Partner)",
+                address = "4AdUndXHHZ6cfufTMvppY6JwXNouMBzSkbLYfpAV5Usx3skxNgYeYTRJ5BNjj4dKKBSoD2M5Zd9g9Gk8vJ1NzRm1EMp3wKf",
+                isVerified = true,
+                lastUsed = Date()
+            ),
+            Contact(
+                id = "2", 
+                name = "Bob (Market Maker)",
+                address = "47YBznJZwCMAu3YZTJ1P8z1k3mQg7i3q5G3qY4R2X7zTKC9YMdtJ3K5xA2B1vH7j8M9pL6nF4d2s8G1vH3xZ4K5j9Q8pL",
+                isVerified = true,
+                lastUsed = Date(System.currentTimeMillis() - 86400000) // 1 day ago
+            ),
+            Contact(
+                id = "3",
+                name = "Charlie (New Contact)",
+                address = "85KZr8Jj5vH3q2mR9G8k1P7xY4F5nD6s8A1vB3qH9j8M7kL2p6G4f1D5s2A8v9N3mQ1r7Y5k8J4h2F6d9S1x3Z7K5p8",
+                isVerified = false,
+                lastUsed = null
+            )
+        )
+    }
+    
+    /**
+     * Send Monero to contact (mock transaction)
+     */
+    suspend fun sendMonero(
+        contactId: String,
+        amount: BigDecimal,
+        priority: TransactionPriority = TransactionPriority.NORMAL
+    ): SendTransactionResult {
+        delay(2000) // Simulate network delay for transaction
+        
+        // Mock validation
+        val balance = getBalance()
+        if (amount > balance.availableBalance) {
+            return SendTransactionResult.Error("Insufficient balance")
+        }
+        
+        if (amount <= BigDecimal.ZERO) {
+            return SendTransactionResult.Error("Amount must be greater than 0")
+        }
+        
+        // Mock successful transaction
+        val txHash = generateMockTxHash()
+        return SendTransactionResult.Success(
+            transactionHash = txHash,
+            amount = amount,
+            fee = calculateMockFee(amount, priority)
+        )
+    }
+    
+    private fun generateMockTxHash(): String {
+        val chars = "0123456789abcdef"
+        return (1..64).map { chars.random() }.joinToString("")
+    }
+    
+    private fun calculateMockFee(amount: BigDecimal, priority: TransactionPriority): BigDecimal {
+        val baseFee = BigDecimal("0.00005")
+        return when (priority) {
+            TransactionPriority.LOW -> baseFee
+            TransactionPriority.NORMAL -> baseFee.multiply(BigDecimal("2"))
+            TransactionPriority.HIGH -> baseFee.multiply(BigDecimal("4"))
+        }
     }
     
     /**

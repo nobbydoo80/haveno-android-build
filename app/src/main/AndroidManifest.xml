@@ -66,6 +66,13 @@
             </intent-filter>
         </activity>
 
+        <!-- Crash Report Activity -->
+        <activity
+            android:name=".util.CrashActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Material.Light"
+            android:screenOrientation="portrait" />
+
         <!-- Splash Activity -->
         <activity
             android:name=".ui.splash.SplashActivity"

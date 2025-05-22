@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.haveno.android.databinding.FragmentPortfolioBinding
+import timber.log.Timber
 
 class PortfolioFragment : Fragment() {
     
@@ -28,6 +29,22 @@ class PortfolioFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        Timber.d("=== PORTFOLIO FRAGMENT LOADED ===")
+        
+        // Show debug message in error text view
+        binding.textError.apply {
+            text = "💼 PORTFOLIO FRAGMENT LOADED!\n\n" +
+                   "✅ Navigation working\n" +
+                   "✅ Fragment inflated\n" +
+                   "✅ ViewBinding working\n\n" +
+                   "This would show:\n" +
+                   "• Active trades\n" +
+                   "• Trade history\n" +
+                   "• Open orders\n\n" +
+                   "Mock data ready!"
+            visibility = View.VISIBLE
+        }
         
         setupTrades()
         setupObservers()

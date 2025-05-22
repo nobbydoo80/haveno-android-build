@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.AdapterView
 import com.haveno.android.databinding.FragmentMarketBinding
+import timber.log.Timber
 
 class MarketFragment : Fragment() {
     
@@ -29,6 +30,22 @@ class MarketFragment : Fragment() {
     
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        
+        Timber.d("=== MARKET FRAGMENT LOADED ===")
+        
+        // Show debug message in error text view
+        binding.textError.apply {
+            text = "📈 MARKET FRAGMENT LOADED!\n\n" +
+                   "✅ Navigation working\n" +
+                   "✅ Fragment inflated\n" +
+                   "✅ ViewBinding working\n\n" +
+                   "This would show:\n" +
+                   "• Order book\n" +
+                   "• Market prices\n" +
+                   "• Trading pairs\n\n" +
+                   "Mock data ready!"
+            visibility = View.VISIBLE
+        }
         
         setupOrderBook()
         setupObservers()
